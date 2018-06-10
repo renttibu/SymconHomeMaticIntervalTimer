@@ -4,7 +4,7 @@
 ![Version](https://img.shields.io/badge/Modul_Version-1.00-blue.svg)
 ![Version](https://img.shields.io/badge/Code-PHP-blue.svg)
 [![License](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-green.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
-[![StyleCI](https://github.styleci.io/repos/136796530/shield?branch=master)](https://github.styleci.io/repos/136796530)
+[![StyleCI](https://github.styleci.io/repos/136835834/shield?branch=master)](https://github.styleci.io/repos/136835834)
 
 Mit diesem Modul ist es möglich Schaltaktoren von [HomeMatic](http://www.eq-3.de/produkte/homematic.html) oder [HomeMaticIP](http://www.eq-3.de/produkte/homematic-ip.html) zum Beispiel für eine Gartenbeleuchtung oder sonstige Geräte automatisch in [IP-Symcon](https://www.symcon.de) zu bestimmten Zeiten ein-, bzw. auszuschalten. 
 Es kann eine Astro-Funktion (Sonnenaufgang, Sonnenuntergang) oder auch ein selbstdefiniertes Zeitprofil (Einschaltzeit, Ausschaltzeit) genutzt werden.
