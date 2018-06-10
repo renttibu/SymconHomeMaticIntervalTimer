@@ -53,7 +53,7 @@ Bei privater Nutzung:
 Nachfolgend wird die Installation dieses Moduls anhand der neuen Web-Console der Version 5.0 beschrieben.
 Folgende Instanzen stehen dann in IP-Symcon zur Verfügung:
 
-- [x] HomeMatic Interval Timer bzw. HomeMatic Zeitschaltung
+- HomeMatic Interval Timer bzw. HomeMatic Zeitschaltung
 
 Im Objektbaum von IP-Symcon die Kern-Instanzen aufrufen. Danach die [Modulverwaltung](https://www.symcon.de/service/dokumentation/modulreferenz/module-control/) aufrufen. Sie sehen nun die bereits installierten Module.
 Fügen Sie über das `+` Symbol (unten rechts) ein neues Modul hinzu.
