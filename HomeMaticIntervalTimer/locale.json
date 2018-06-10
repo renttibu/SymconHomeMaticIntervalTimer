@@ -1,0 +1,43 @@
+{
+  "translations": {
+    "de": {
+      "HomeMatic Interval Timer - Version 1.00 (2018-05-22, 19:15)": "HomeMatic Zeitschaltung - Version 1.00 (22.05.2018, 19:15)",
+      "(1) General Settings": "(1) Allgemeine Einstellungen",
+      "Category": "Kategorie",
+      "Description": "Bezeichnung",
+      "(2) Mode": "(2) Modus",
+      "Automatic": "Automatik",
+      "(3) Switch-On time": "(3) Einschaltzeit",
+      "Switch-On time": "Einschaltzeit",
+      "Astro trigger": "Astro Auslöser",
+      "Time": "Uhrzeit",
+      "Random switching delay": "Zufällige Schaltverzögerung",
+      "Minutes": "Zeitraum in Minuten",
+      "Dimmer duration in minutes": "Dimmdauer in Minuten",
+      "Dimmer value": "Dimmwert",
+      "(4) Switch-Off time": "(4) Ausschaltzeit",
+      "Switch-Off time": "Ausschaltzeit",
+      "(5) Devices": "(5) Schaltaktoren",
+      "Device": "Schaltaktor",
+      "Type": "Typ",
+      "Utilisation": "Verwendung",
+      "Switching delay in milliseconds": "Schaltverzögerung in Millisekunden",
+      "Milliseconds": "Millisekunden",
+      "HomeMatic Interval Timer will be created": "HomeMatic Zeitschaltung wird erstellt.",
+      "HomeMatic Interval Timer is active": "HomeMatic Zeitschaltung ist aktiv.",
+      "HomeMatic Interval Timer will be deleted": "HomeMatic Zeitschaltung wird gelöscht.",
+      "HomeMatic Interval Timer is inactive": "HomeMatic Zeitschaltung ist inaktiv.",
+      "Please enter a description under (1) General Settings!": "Bitte geben Sie eine Bezeichnung unter (1) Allgemeine Einstellungen an!",
+      "Please check the assigned object ID for astro trigger under (3) Switch-On time!": "Bitte überprüfen Sie die zugewiesene Objekt ID für den Astro Auslöser unter (3) Einschaltzeit!",
+      "The difference between switch on and switch off time must be at least the double value of random delay period under (3) Switch-On time!": "Die Differenz zwischen Ein- und Ausschaltzeit muss mindestens dem doppelten Wert der zufälligen Verzögerungszeit entsprechen unter (3) Einschaltzeit!",
+      "Please check the assigned object ID for astro trigger under (4) Switch-Off time!": "Bitte überprüfen Sie die zugewiesene Objekt ID für den Astro Auslöser unter (4) Ausschaltzeit!",
+      "The difference between switch on and switch off time must be at least the double value of random delay period under (4) Switch-Off time!": "Die Differenz zwischen Ein- und Ausschaltzeit muss mindestens dem doppelten Wert der zufälligen Verzögerungszeit entsprechen unter (4) Ausschaltzeit!",
+      "Please check the configuration of the devices under (5) Devices!": "Bitte überprüfen Sie die Konfiguration der Schaltaktoren unter (5) Schaltaktoren!",
+      "Interval timer": "Zeitschaltung",
+      "Next switch on": "Nächste Einschaltung",
+      "Next switch off": "Nächste Ausschaltung",
+      "could not switch device!": "konnte nicht geschaltet werden!",
+      "Error": "Fehler"
+    }
+  }
+}

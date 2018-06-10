@@ -1,0 +1,221 @@
+{
+  "elements": [
+    {
+      "type": "Label",
+      "label": "HomeMatic Interval Timer - Version 1.00 (2018-05-22, 19:15)"
+    },
+    {
+      "type": "Label",
+      "label": " "
+    },
+    {
+      "type": "Label",
+      "label": "(1) General Settings"
+    },
+    {
+      "type": "SelectCategory",
+      "name": "Category",
+      "caption": "Category"
+    },
+    {
+      "type": "ValidationTextBox",
+      "name": "Description",
+      "caption": "Description"
+    },
+    {
+      "type": "Label",
+      "label": " "
+    },
+    {
+      "type": "Label",
+      "label": "(2) Mode"
+    },
+    {
+      "type": "CheckBox",
+      "name": "UseAutomatic",
+      "caption": "Automatic"
+    },
+    {
+      "type": "Label",
+      "label": " "
+    },
+    {
+      "type": "Label",
+      "label": "(3) Switch-On time"
+    },
+    {
+      "type": "CheckBox",
+      "name": "UseSwitchOnTime",
+      "caption": "Switch-On time"
+    },
+    {
+      "type": "SelectVariable",
+      "name": "SwitchOnAstroID",
+      "caption": "Astro trigger"
+    },
+    {
+      "type": "SelectTime",
+      "name": "SwitchOnTime",
+      "caption": "Time"
+    },
+    {
+      "type": "CheckBox",
+      "name": "UseRandomSwitchOnDelay",
+      "caption": "Random switching delay"
+    },
+    {
+      "type": "NumberSpinner",
+      "name": "SwitchOnDelay",
+      "caption": "Minutes"
+    },
+    {
+      "type": "Label",
+      "label": " "
+    },
+    {
+      "type": "Label",
+      "label": "(4) Switch-Off time"
+    },
+    {
+      "type": "CheckBox",
+      "name": "UseSwitchOffTime",
+      "caption": "Switch-Off time"
+    },
+    {
+      "type": "SelectVariable",
+      "name": "SwitchOffAstroID",
+      "caption": "Astro trigger"
+    },
+    {
+      "type": "SelectTime",
+      "name": "SwitchOffTime",
+      "caption": "Time"
+    },
+    {
+      "type": "CheckBox",
+      "name": "UseRandomSwitchOffDelay",
+      "caption": "Random switching delay"
+    },
+    {
+      "type": "NumberSpinner",
+      "name": "SwitchOffDelay",
+      "caption": "Minutes"
+    },
+    {
+      "type": "Label",
+      "label": " "
+    },
+    {
+      "type": "Label",
+      "label": "(5) Devices"
+    },
+    {
+      "type": "List",
+      "name": "DeviceList",
+      "rowCount": 10,
+      "add": true,
+      "delete": true,
+      "sort": {
+        "column": "Position",
+        "direction": "ascending"
+      },
+      "columns": [
+        {
+          "label": "Position",
+          "name": "Position",
+          "width": "100px",
+          "add": "",
+          "edit": {
+            "type": "ValidationTextBox"
+          }
+        },
+        {
+          "label": "Description",
+          "name": "Description",
+          "width": "250px",
+          "add": "",
+          "edit": {
+            "type": "ValidationTextBox"
+          }
+        },
+        {
+          "label": "Device",
+          "name": "DeviceID",
+          "width": "auto",
+          "add": 0,
+          "edit": {
+            "type": "SelectInstance"
+          }
+        },
+        {
+          "label": "Utilisation",
+          "name": "UseDevice",
+          "width": "150px",
+          "add": true,
+          "edit": {
+            "type": "CheckBox"
+          }
+        }
+      ]
+    },
+    {
+      "type": "NumberSpinner",
+      "name": "DeviceSwitchingDelay",
+      "caption": "Switching delay in milliseconds"
+    }
+  ],
+  "actions": [
+  ],
+  "status": [
+    {
+      "code": 101,
+      "icon": "active",
+      "caption": "HomeMatic Interval Timer will be created"
+    },
+    {
+      "code": 102,
+      "icon": "active",
+      "caption": "HomeMatic Interval Timer is active"
+    },
+    {
+      "code": 103,
+      "icon": "active",
+      "caption": "HomeMatic Interval Timer will be deleted"
+    },
+    {
+      "code": 104,
+      "icon": "inactive",
+      "caption": "HomeMatic Interval Timer is inactive"
+    },
+    {
+      "code": 2121,
+      "icon": "inactive",
+      "caption": "Please enter a description under (1) General Settings!"
+    },
+    {
+      "code": 2321,
+      "icon": "inactive",
+      "caption": "Please check the assigned object ID for astro trigger under (3) Switch-On time!"
+    },
+    {
+      "code": 2351,
+      "icon": "inactive",
+      "caption": "The difference between switch on and switch off time must be at least the double value of random delay period under (3) Switch-On time!"
+    },
+    {
+      "code": 2421,
+      "icon": "inactive",
+      "caption": "Please check the assigned object ID for astro trigger under (4) Switch-Off time!"
+    },
+    {
+      "code": 2451,
+      "icon": "inactive",
+      "caption": "The difference between switch on and switch off time must be at least the double value of random delay period under (4) Switch-Off time!"
+    },
+    {
+      "code": 2511,
+      "icon": "inactive",
+      "caption": "Please check the configuration of the devices under (5) Devices!"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "id": "{17FB4E89-5D0B-4A51-B7D0-8BE6B2F46C1D}",
+  "name": "HomeMaticIntervalTimer",
+  "type": 3,
+  "vendor": "Ulrich Bittner",
+  "aliases": [
+    "HomeMatic Interval Timer",
+    "HomeMatic Zeitschaltung"
+  ],
+  "parentRequirements": [],
+  "childRequirements": [],
+  "implemented": [],
+  "prefix": "UBHMIT"
+}

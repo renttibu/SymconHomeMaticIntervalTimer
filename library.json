@@ -1,0 +1,13 @@
+{
+  "id": "{C913F1C0-3605-4DB9-ABB7-F44FB9B244B2}",
+  "author": "Ulrich Bittner",
+  "name": "SymconHomeMaticIntervalTimer",
+  "url": "https://github.com/ubittner/SymconHomeMaticIntervalTimer.git",
+  "compatibility": {
+    "version": "5.0",
+    "date": 1526774400
+  },
+  "version": "1.00",
+  "build": 0,
+  "date": 1527016500
+}
