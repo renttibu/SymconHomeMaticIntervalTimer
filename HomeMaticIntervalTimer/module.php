@@ -444,9 +444,9 @@ class HomeMaticIntervalTimer extends IPSModule
                     $second = $switchOnTime->second;
                     $definedTime = $hour . ':' . $minute . ':' . $second;
                     if (time() >= strtotime($definedTime)) {
-                        $timestamp = mktime($hour, $minute, $second, date('n'), date('j') + 1, date('Y'));
+                        $timestamp = mktime($hour, $minute, $second, (int) date('n'), (int) date('j') + 1, (int) date('Y'));
                     } else {
-                        $timestamp = mktime($hour, $minute, $second, date('n'), date('j'), date('Y'));
+                        $timestamp = mktime($hour, $minute, $second, (int) date('n'), (int) date('j'), (int) date('Y'));
                     }
                     $timerInterval = ($timestamp - $now) * 1000;
                     $timerInfo = $timestamp + date('Z');
@@ -496,9 +496,9 @@ class HomeMaticIntervalTimer extends IPSModule
                     $second = $switchOffTime->second;
                     $definedTime = $hour . ':' . $minute . ':' . $second;
                     if (time() >= strtotime($definedTime)) {
-                        $timestamp = mktime($hour, $minute, $second, date('n'), date('j') + 1, date('Y'));
+                        $timestamp = mktime($hour, $minute, $second, (int) date('n'), (int) date('j') + 1, (int) date('Y'));
                     } else {
-                        $timestamp = mktime($hour, $minute, $second, date('n'), date('j'), date('Y'));
+                        $timestamp = mktime($hour, $minute, $second, (int) date('n'), (int) date('j'), (int) date('Y'));
                     }
                     $timerInterval = ($timestamp - $now) * 1000;
                     $timerInfo = $timestamp + date('Z');
