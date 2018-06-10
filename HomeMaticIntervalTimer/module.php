@@ -185,7 +185,7 @@ class HomeMaticIntervalTimer extends IPSModule
         if (!empty($devices)) {
             if ($this->ReadPropertyInteger('DeviceSwitchingDelay') == 0) {
                 foreach ($devices as $device) {
-                    $this->ToggleDevice( (int) $device, $State);
+                    $this->ToggleDevice((int) $device, $State);
                 }
                 $this->SetSwitchDevicesOnTimer();
                 $this->SetSwitchDevicesOffTimer();
