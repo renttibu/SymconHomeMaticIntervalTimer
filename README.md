@@ -1,0 +1,2 @@
+# SymconHomeMaticIntervalTimer
+SymconHomeMaticIntervalTimer
