@@ -48,39 +48,39 @@ class HomeMaticIntervalTimer extends IPSModule
         parent::Create();
         // Register properties
         // General settings
-        $this->RegisterPropertyInteger("Category", 0);
-        $this->RegisterPropertyString("Description", $this->Translate("Interval timer"));
+        $this->RegisterPropertyInteger('Category', 0);
+        $this->RegisterPropertyString('Description', $this->Translate('Interval timer'));
         // Mode
-        $this->RegisterPropertyBoolean("UseAutomatic", false);
+        $this->RegisterPropertyBoolean('UseAutomatic', false);
         // Switch on time
-        $this->RegisterPropertyBoolean("UseSwitchOnTime", false);
-        $this->RegisterPropertyInteger("SwitchOnAstroID", 0);
-        $this->RegisterPropertyString("SwitchOnTime", '{"hour":22,"minute":30,"second":0}');
-        $this->RegisterPropertyBoolean("UseRandomSwitchOnDelay", false);
-        $this->RegisterPropertyInteger("SwitchOnDelay", 30);
+        $this->RegisterPropertyBoolean('UseSwitchOnTime', false);
+        $this->RegisterPropertyInteger('SwitchOnAstroID', 0);
+        $this->RegisterPropertyString('SwitchOnTime', '{"hour":22,"minute":30,"second":0}');
+        $this->RegisterPropertyBoolean('UseRandomSwitchOnDelay', false);
+        $this->RegisterPropertyInteger('SwitchOnDelay', 30);
         // Switch off time
-        $this->RegisterPropertyBoolean("UseSwitchOffTime", false);
-        $this->RegisterPropertyInteger("SwitchOffAstroID", 0);
-        $this->RegisterPropertyString("SwitchOffTime", '{"hour":8,"minute":30,"second":0}');
-        $this->RegisterPropertyBoolean("UseRandomSwitchOffDelay", false);
-        $this->RegisterPropertyInteger("SwitchOffDelay", 30);
+        $this->RegisterPropertyBoolean('UseSwitchOffTime', false);
+        $this->RegisterPropertyInteger('SwitchOffAstroID', 0);
+        $this->RegisterPropertyString('SwitchOffTime', '{"hour":8,"minute":30,"second":0}');
+        $this->RegisterPropertyBoolean('UseRandomSwitchOffDelay', false);
+        $this->RegisterPropertyInteger('SwitchOffDelay', 30);
         // Device list
-        $this->RegisterPropertyString("DeviceList", "");
-        $this->RegisterPropertyInteger("DeviceSwitchingDelay", 0);
+        $this->RegisterPropertyString('DeviceList', '');
+        $this->RegisterPropertyInteger('DeviceSwitchingDelay', 0);
         // Register timer
-        $this->RegisterTimer("SwitchDevicesOn", 0, 'UBHMIT_SwitchDevices($_IPS[\'TARGET\'], true);');
-        $this->RegisterTimer("SwitchDevicesOff", 0, 'UBHMIT_SwitchDevices($_IPS[\'TARGET\'], false);');
-        $this->RegisterTimer("SwitchNextDevice", 0, 'UBHMIT_SwitchNextDevice($_IPS[\'TARGET\']);');
+        $this->RegisterTimer('SwitchDevicesOn', 0, 'UBHMIT_SwitchDevices($_IPS[\'TARGET\'], true);');
+        $this->RegisterTimer('SwitchDevicesOff', 0, 'UBHMIT_SwitchDevices($_IPS[\'TARGET\'], false);');
+        $this->RegisterTimer('SwitchNextDevice', 0, 'UBHMIT_SwitchNextDevice($_IPS[\'TARGET\']);');
         // Register variables
-        $this->RegisterVariableBoolean("Devices", $this->Translate("Devices"), "~Switch", 1);
-        $this->EnableAction("Devices");
-        $this->RegisterVariableBoolean("Automatic", $this->Translate("Automatic"), "~Switch", 2);
-        IPS_SetIcon($this->GetIDForIdent("Automatic"), "Clock");
-        $this->EnableAction("Automatic");
-        $this->RegisterVariableString("NextSwitchOnTime", $this->Translate("Next switch on"), "", 3);
-        IPS_SetIcon($this->GetIDForIdent("NextSwitchOnTime"), "Information");
-        $this->RegisterVariableString("NextSwitchOffTime", $this->Translate("Next switch off"), "", 4);
-        IPS_SetIcon($this->GetIDForIdent("NextSwitchOffTime"), "Information");
+        $this->RegisterVariableBoolean('Devices', $this->Translate('Devices'), '~Switch', 1);
+        $this->EnableAction('Devices');
+        $this->RegisterVariableBoolean('Automatic', $this->Translate('Automatic'), '~Switch', 2);
+        IPS_SetIcon($this->GetIDForIdent('Automatic'), 'Clock');
+        $this->EnableAction('Automatic');
+        $this->RegisterVariableString('NextSwitchOnTime', $this->Translate('Next switch on'), '', 3);
+        IPS_SetIcon($this->GetIDForIdent('NextSwitchOnTime'), 'Information');
+        $this->RegisterVariableString('NextSwitchOffTime', $this->Translate('Next switch off'), '', 4);
+        IPS_SetIcon($this->GetIDForIdent('NextSwitchOffTime'), 'Information');
     }
 
     public function ApplyChanges()
@@ -92,7 +92,7 @@ class HomeMaticIntervalTimer extends IPSModule
         if (IPS_GetKernelRunlevel() == KR_READY) {
             // Check configuration
             $this->ValidateConfiguration();
-            if (IPS_GetInstance($this->InstanceID)["InstanceStatus"] == 102) {
+            if (IPS_GetInstance($this->InstanceID)['InstanceStatus'] == 102) {
                 // Set timer
                 $this->SetSwitchDevicesOnTimer();
                 $this->SetSwitchDevicesOffTimer();
@@ -101,7 +101,7 @@ class HomeMaticIntervalTimer extends IPSModule
                 // Set buffer
                 $this->SetDevicesBuffer();
                 // Set automatic switch
-                SetValue($this->GetIDForIdent("Automatic"), $this->ReadPropertyBoolean("UseAutomatic"));
+                SetValue($this->GetIDForIdent('Automatic'), $this->ReadPropertyBoolean('UseAutomatic'));
                 $this->CheckState(0);
             }
         }
@@ -122,27 +122,27 @@ class HomeMaticIntervalTimer extends IPSModule
 
     public function GetConfigurationForm()
     {
-        $formdata = json_decode(file_get_contents(__DIR__ . "/form.json"));
-        $devices = json_decode($this->ReadPropertyString("DeviceList"));
+        $formdata = json_decode(file_get_contents(__DIR__ . '/form.json'));
+        $devices = json_decode($this->ReadPropertyString('DeviceList'));
         if (!empty($devices)) {
             $status = true;
             foreach ($devices as $currentKey => $currentArray) {
-                $rowColor = "";
+                $rowColor = '';
                 foreach ($devices as $searchKey => $searchArray) {
                     // Search for duplicate entries
                     if ($searchArray->Position == $currentArray->Position) {
                         if ($searchKey != $currentKey) {
-                            $rowColor = "#FFC0C0";
+                            $rowColor = '#FFC0C0';
                             $status = false;
                         }
                     }
                 }
                 // Check entries
-                if (($currentArray->Position == "") || ($currentArray->Description == "") || ($currentArray->DeviceID == 0)) {
-                    $rowColor = "#FFC0C0";
+                if (($currentArray->Position == '') || ($currentArray->Description == '') || ($currentArray->DeviceID == 0)) {
+                    $rowColor = '#FFC0C0';
                     $status = false;
                 }
-                $formdata->elements[24]->values[] = array("rowColor" => $rowColor);
+                $formdata->elements[24]->values[] = ['rowColor' => $rowColor];
                 if ($status == false) {
                     $this->SetStatus(2511);
                 }
@@ -151,25 +151,23 @@ class HomeMaticIntervalTimer extends IPSModule
         return json_encode($formdata);
     }
 
-
     //#################### Request action
-
 
     public function RequestAction($Ident, $Value)
     {
         try {
             switch ($Ident) {
-                case "Devices":
+                case 'Devices':
                     $this->SwitchDevices($Value);
                     break;
-                case "Automatic":
+                case 'Automatic':
                     $this->SetAutomatic($Value);
                     break;
                 default:
-                    throw new Exception("Invalid Ident");
+                    throw new Exception('Invalid Ident');
             }
         } catch (Exception $e) {
-            IPS_LogMessage("UBHMIT", $e->getMessage());
+            IPS_LogMessage('UBHMIT', $e->getMessage());
         }
     }
 
@@ -182,16 +180,16 @@ class HomeMaticIntervalTimer extends IPSModule
      */
     public function SwitchDevices(bool $State)
     {
-        $this->SetBuffer("SwitchingMode", json_encode(array("mode" => $State)));
-        $devices = json_decode($this->GetBuffer("Devices"), true);
+        $this->SetBuffer('SwitchingMode', json_encode(['mode' => $State]));
+        $devices = json_decode($this->GetBuffer('Devices'), true);
         if (!empty($devices)) {
-            if ($this->ReadPropertyInteger("DeviceSwitchingDelay") == 0) {
+            if ($this->ReadPropertyInteger('DeviceSwitchingDelay') == 0) {
                 foreach ($devices as $device) {
                     $this->ToggleDevice($device, $State);
                 }
                 $this->SetSwitchDevicesOnTimer();
                 $this->SetSwitchDevicesOffTimer();
-                $this->SetTimerInterval("SwitchNextDevice", 0);
+                $this->SetTimerInterval('SwitchNextDevice', 0);
             } else {
                 $device = $devices[1];
                 // Switch device
@@ -201,8 +199,8 @@ class HomeMaticIntervalTimer extends IPSModule
                     array_shift($devices);
                     $newDevices = array_combine(range(1, count($devices)), array_values($devices));
                     $data = json_encode($newDevices);
-                    $this->SetBuffer("Devices", $data);
-                    $interval = $this->ReadPropertyInteger("DeviceSwitchingDelay");
+                    $this->SetBuffer('Devices', $data);
+                    $interval = $this->ReadPropertyInteger('DeviceSwitchingDelay');
                 } else {
                     $interval = 0;
                     // Reset Devices
@@ -211,9 +209,9 @@ class HomeMaticIntervalTimer extends IPSModule
                     $this->SetSwitchDevicesOnTimer();
                     $this->SetSwitchDevicesOffTimer();
                     // Reset switching mode
-                    $this->SetBuffer("SwitchingMode", json_encode(array()));
+                    $this->SetBuffer('SwitchingMode', json_encode([]));
                 }
-                $this->SetTimerInterval("SwitchNextDevice", $interval);
+                $this->SetTimerInterval('SwitchNextDevice', $interval);
             }
         }
     }
@@ -223,12 +221,12 @@ class HomeMaticIntervalTimer extends IPSModule
      */
     public function SwitchNextDevice()
     {
-        $mode = json_decode($this->GetBuffer("SwitchingMode"), true);
+        $mode = json_decode($this->GetBuffer('SwitchingMode'), true);
         if (!empty($mode)) {
-            $state = $mode["mode"];
+            $state = $mode['mode'];
             $this->SwitchDevices($state);
         } else {
-            $this->SetTimerInterval("SwitchNextDevice", 0);
+            $this->SetTimerInterval('SwitchNextDevice', 0);
         }
     }
 
@@ -239,8 +237,8 @@ class HomeMaticIntervalTimer extends IPSModule
      */
     public function SetAutomatic(bool $State)
     {
-        SetValue($this->GetIDForIdent("Automatic"), $State);
-        IPS_SetProperty($this->InstanceID, "UseAutomatic", $State);
+        SetValue($this->GetIDForIdent('Automatic'), $State);
+        IPS_SetProperty($this->InstanceID, 'UseAutomatic', $State);
         if (IPS_HasChanges($this->InstanceID)) {
             IPS_ApplyChanges($this->InstanceID);
         }
@@ -251,69 +249,69 @@ class HomeMaticIntervalTimer extends IPSModule
     //#################### Protected
 
     /**
-     * Validates the configuration
+     * Validates the configuration.
      */
     protected function ValidateConfiguration()
     {
         $this->SetStatus(102);
 
         // Check random switch delay
-        if ($this->ReadPropertyBoolean("UseSwitchOnTime") == true && $this->ReadPropertyBoolean("UseSwitchOffTime") == true) {
-            $switchOnTime = json_decode($this->ReadPropertyString("SwitchOnTime"));
-            $definedOnTime = $switchOnTime->hour . ":" . $switchOnTime->minute . ":" . $switchOnTime->second;
+        if ($this->ReadPropertyBoolean('UseSwitchOnTime') == true && $this->ReadPropertyBoolean('UseSwitchOffTime') == true) {
+            $switchOnTime = json_decode($this->ReadPropertyString('SwitchOnTime'));
+            $definedOnTime = $switchOnTime->hour . ':' . $switchOnTime->minute . ':' . $switchOnTime->second;
             $onTime = strtotime($definedOnTime);
-            $switchOffTime = json_decode($this->ReadPropertyString("SwitchOffTime"));
-            $definedTime = $switchOffTime->hour . ":" . $switchOffTime->minute . ":" . $switchOffTime->second;
+            $switchOffTime = json_decode($this->ReadPropertyString('SwitchOffTime'));
+            $definedTime = $switchOffTime->hour . ':' . $switchOffTime->minute . ':' . $switchOffTime->second;
             $offTime = strtotime($definedTime);
             $timeDifference = abs($offTime - $onTime) / 60;
-            if ($this->ReadPropertyBoolean("UseRandomSwitchOffDelay") == true) {
-                $randomDelayTime = json_decode($this->ReadPropertyInteger("SwitchOffDelay"));
+            if ($this->ReadPropertyBoolean('UseRandomSwitchOffDelay') == true) {
+                $randomDelayTime = json_decode($this->ReadPropertyInteger('SwitchOffDelay'));
                 if ($timeDifference < $randomDelayTime * 2) {
                     $this->SetStatus(2451);
                 }
             }
-            if ($this->ReadPropertyBoolean("UseRandomSwitchOnDelay") == true) {
-                $randomDelayTime = json_decode($this->ReadPropertyInteger("SwitchOnDelay"));
+            if ($this->ReadPropertyBoolean('UseRandomSwitchOnDelay') == true) {
+                $randomDelayTime = json_decode($this->ReadPropertyInteger('SwitchOnDelay'));
                 if ($timeDifference < $randomDelayTime * 2) {
                     $this->SetStatus(2351);
                 }
             }
         }
         // Check location
-        if ($this->ReadPropertyBoolean("UseAutomatic") == true && $this->ReadPropertyBoolean("UseSwitchOffTime") == true) {
-            $astroID = $this->ReadPropertyInteger("SwitchOffAstroID");
+        if ($this->ReadPropertyBoolean('UseAutomatic') == true && $this->ReadPropertyBoolean('UseSwitchOffTime') == true) {
+            $astroID = $this->ReadPropertyInteger('SwitchOffAstroID');
             if ($astroID != 0) {
                 $parentID = IPS_GetParent($astroID);
                 if (IPS_ObjectExists($parentID)) {
-                    if (($parentID == 0) || ($moduleID = IPS_GetInstance($parentID)["ModuleInfo"]["ModuleID"] != LOCATION_CONTROL)) {
+                    if (($parentID == 0) || ($moduleID = IPS_GetInstance($parentID)['ModuleInfo']['ModuleID'] != LOCATION_CONTROL)) {
                         $this->SetStatus(2421);
                     }
                 }
             }
         }
-        if ($this->ReadPropertyBoolean("UseAutomatic") == true && $this->ReadPropertyBoolean("UseSwitchOnTime") == true) {
-            $astroID = $this->ReadPropertyInteger("SwitchOnAstroID");
+        if ($this->ReadPropertyBoolean('UseAutomatic') == true && $this->ReadPropertyBoolean('UseSwitchOnTime') == true) {
+            $astroID = $this->ReadPropertyInteger('SwitchOnAstroID');
             if ($astroID != 0) {
                 $parentID = IPS_GetParent($astroID);
                 if (IPS_ObjectExists($parentID)) {
-                    if (($parentID == 0) || ($moduleID = IPS_GetInstance($parentID)["ModuleInfo"]["ModuleID"] != LOCATION_CONTROL)) {
+                    if (($parentID == 0) || ($moduleID = IPS_GetInstance($parentID)['ModuleInfo']['ModuleID'] != LOCATION_CONTROL)) {
                         $this->SetStatus(2321);
                     }
                 }
             }
         }
         // Set description
-        $description = $this->ReadPropertyString("Description");
-        if ($description == "") {
+        $description = $this->ReadPropertyString('Description');
+        if ($description == '') {
             $this->SetStatus(2121);
         } else {
             // Rename instance
             IPS_SetName($this->InstanceID, $description);
             // Rename Devices switch
-            IPS_SetName($this->GetIDForIdent("Devices"), $this->ReadPropertyString("Description"));
+            IPS_SetName($this->GetIDForIdent('Devices'), $this->ReadPropertyString('Description'));
         }
         // Set category
-        $categoryID = $this->ReadPropertyInteger("Category");
+        $categoryID = $this->ReadPropertyInteger('Category');
         IPS_SetParent($this->InstanceID, $categoryID);
     }
 
@@ -325,13 +323,13 @@ class HomeMaticIntervalTimer extends IPSModule
      */
     protected function ToggleDevice(int $Device, bool $State)
     {
-        $toggle = @HM_WriteValueBoolean($Device, "STATE", $State);
+        $toggle = @HM_WriteValueBoolean($Device, 'STATE', $State);
         if ($toggle == false) {
             $name = IPS_GetName($Device);
-            $text = $name . ", " . $this->Translate("could not switch device!");
+            $text = $name . ', ' . $this->Translate('could not switch device!');
             $this->WriteLogMessage($text);
         } else {
-            SetValue($this->GetIDForIdent("Devices"), $State);
+            SetValue($this->GetIDForIdent('Devices'), $State);
         }
     }
 
@@ -343,15 +341,15 @@ class HomeMaticIntervalTimer extends IPSModule
         // Create new array from device list
         // key = position
         // value = target id
-        $targetIDs = array();
-        $devices = json_decode($this->ReadPropertyString("DeviceList"));
+        $targetIDs = [];
+        $devices = json_decode($this->ReadPropertyString('DeviceList'));
         if (!empty($devices)) {
             foreach ($devices as $device) {
                 if ($device->UseDevice == true) {
                     $childrenIDs = IPS_GetChildrenIDs($device->DeviceID);
                     foreach ($childrenIDs as $childrenID) {
-                        $objectIdent = IPS_GetObject($childrenID)["ObjectIdent"];
-                        if ($objectIdent == "STATE") {
+                        $objectIdent = IPS_GetObject($childrenID)['ObjectIdent'];
+                        if ($objectIdent == 'STATE') {
                             $targetIDs[$device->Position] = $childrenID;
                         }
                     }
@@ -361,14 +359,14 @@ class HomeMaticIntervalTimer extends IPSModule
         // Create new array from existing links
         // key = link id
         // value = existing target id
-        $existingTargetIDs = array();
+        $existingTargetIDs = [];
         $childrenIDs = IPS_GetChildrenIDs($this->InstanceID);
         foreach ($childrenIDs as $childrenID) {
             // Check if children is a link
-            $objectType = IPS_GetObject($childrenID)["ObjectType"];
+            $objectType = IPS_GetObject($childrenID)['ObjectType'];
             if ($objectType == 6) {
                 // Get target id
-                $existingTargetID = IPS_GetLink($childrenID)["TargetID"];
+                $existingTargetID = IPS_GetLink($childrenID)['TargetID'];
                 $existingTargetIDs[$childrenID] = $existingTargetID;
             }
         }
@@ -405,46 +403,46 @@ class HomeMaticIntervalTimer extends IPSModule
     }
 
     /**
-     * Set devices buffer
+     * Set devices buffer.
      */
     protected function SetDevicesBuffer()
     {
-        $devices = json_decode($this->ReadPropertyString("DeviceList"));
-        $buffer = array();
+        $devices = json_decode($this->ReadPropertyString('DeviceList'));
+        $buffer = [];
         if (!empty($devices)) {
             foreach ($devices as $device) {
                 if ($device->UseDevice == true) {
-                    $buffer[$device->Position] = (string)$device->DeviceID;
+                    $buffer[$device->Position] = (string) $device->DeviceID;
                 }
             }
         }
         ksort($buffer);
-        $this->SetBuffer("Devices", json_encode($buffer));
+        $this->SetBuffer('Devices', json_encode($buffer));
     }
 
     /**
-     *  Set the timer for switching the devices on
+     *  Set the timer for switching the devices on.
      */
     protected function SetSwitchDevicesOnTimer()
     {
         $timerInterval = 0;
-        $timerInfo = "";
-        if ($this->ReadPropertyBoolean("UseAutomatic") == true) {
+        $timerInfo = '';
+        if ($this->ReadPropertyBoolean('UseAutomatic') == true) {
             $now = time();
-            if ($this->ReadPropertyBoolean("UseSwitchOnTime") == true) {
+            if ($this->ReadPropertyBoolean('UseSwitchOnTime') == true) {
                 // Astro
-                $astroID = $this->ReadPropertyInteger("SwitchOnAstroID");
+                $astroID = $this->ReadPropertyInteger('SwitchOnAstroID');
                 if ($astroID != 0) {
                     $timestamp = GetValueInteger($astroID);
                     $timerInterval = ($timestamp - $now) * 1000;
                     $timerInfo = $timestamp + date('Z');
                 } else {
                     // Timer
-                    $switchOnTime = json_decode($this->ReadPropertyString("SwitchOnTime"));
+                    $switchOnTime = json_decode($this->ReadPropertyString('SwitchOnTime'));
                     $hour = $switchOnTime->hour;
                     $minute = $switchOnTime->minute;
                     $second = $switchOnTime->second;
-                    $definedTime = $hour . ":" . $minute . ":" . $second;
+                    $definedTime = $hour . ':' . $minute . ':' . $second;
                     if (time() >= strtotime($definedTime)) {
                         $timestamp = mktime($hour, $minute, $second, date('n'), date('j') + 1, date('Y'));
                     } else {
@@ -454,8 +452,8 @@ class HomeMaticIntervalTimer extends IPSModule
                     $timerInfo = $timestamp + date('Z');
                 }
                 // Check random delay
-                if ($this->ReadPropertyBoolean("UseRandomSwitchOnDelay") == true) {
-                    $switchOnDelay = $this->ReadPropertyInteger("SwitchOnDelay");
+                if ($this->ReadPropertyBoolean('UseRandomSwitchOnDelay') == true) {
+                    $switchOnDelay = $this->ReadPropertyInteger('SwitchOnDelay');
                     if ($timerInterval != 0 && $switchOnDelay > 0) {
                         $delay = rand(0, $switchOnDelay * 60000) * 2 - $switchOnDelay * 60000;
                         $timerInterval = $timerInterval + $delay;
@@ -465,13 +463,13 @@ class HomeMaticIntervalTimer extends IPSModule
             }
         }
         // Set timer
-        $this->SetTimerInterval("SwitchDevicesOn", $timerInterval);
+        $this->SetTimerInterval('SwitchDevicesOn', $timerInterval);
         // Set next switch on time info
-        $date = "";
+        $date = '';
         if (!empty($timerInfo)) {
-            $date = gmdate("d.m.Y, H:i:s", $timerInfo);
+            $date = gmdate('d.m.Y, H:i:s', $timerInfo);
         }
-        $this->SetValue("NextSwitchOnTime", $date);
+        $this->SetValue('NextSwitchOnTime', $date);
     }
 
     /**
@@ -480,23 +478,23 @@ class HomeMaticIntervalTimer extends IPSModule
     protected function SetSwitchDevicesOffTimer()
     {
         $timerInterval = 0;
-        $timerInfo = "";
-        if ($this->ReadPropertyBoolean("UseAutomatic") == true) {
+        $timerInfo = '';
+        if ($this->ReadPropertyBoolean('UseAutomatic') == true) {
             $now = time();
-            if ($this->ReadPropertyBoolean("UseSwitchOffTime") == true) {
+            if ($this->ReadPropertyBoolean('UseSwitchOffTime') == true) {
                 // Astro
-                $astroID = $this->ReadPropertyInteger("SwitchOffAstroID");
+                $astroID = $this->ReadPropertyInteger('SwitchOffAstroID');
                 if ($astroID != 0) {
                     $timestamp = GetValueInteger($astroID);
                     $timerInterval = ($timestamp - $now) * 1000;
                     $timerInfo = $timestamp + date('Z');
                 } else {
                     // Timer
-                    $switchOffTime = json_decode($this->ReadPropertyString("SwitchOffTime"));
+                    $switchOffTime = json_decode($this->ReadPropertyString('SwitchOffTime'));
                     $hour = $switchOffTime->hour;
                     $minute = $switchOffTime->minute;
                     $second = $switchOffTime->second;
-                    $definedTime = $hour . ":" . $minute . ":" . $second;
+                    $definedTime = $hour . ':' . $minute . ':' . $second;
                     if (time() >= strtotime($definedTime)) {
                         $timestamp = mktime($hour, $minute, $second, date('n'), date('j') + 1, date('Y'));
                     } else {
@@ -506,8 +504,8 @@ class HomeMaticIntervalTimer extends IPSModule
                     $timerInfo = $timestamp + date('Z');
                 }
                 // Check random delay
-                if ($this->ReadPropertyBoolean("UseRandomSwitchOffDelay") == true) {
-                    $switchOffDelay = $this->ReadPropertyInteger("SwitchOffDelay");
+                if ($this->ReadPropertyBoolean('UseRandomSwitchOffDelay') == true) {
+                    $switchOffDelay = $this->ReadPropertyInteger('SwitchOffDelay');
                     if ($timerInterval != 0 && $switchOffDelay > 0) {
                         $delay = rand(0, $switchOffDelay * 60000) * 2 - $switchOffDelay * 60000;
                         $timerInterval = $timerInterval + $delay;
@@ -515,16 +513,15 @@ class HomeMaticIntervalTimer extends IPSModule
                     }
                 }
             }
-
         }
         // Set timer
-        $this->SetTimerInterval("SwitchDevicesOff", $timerInterval);
+        $this->SetTimerInterval('SwitchDevicesOff', $timerInterval);
         // Set next switch off time info
-        $date = "";
+        $date = '';
         if (!empty($timerInfo)) {
-            $date = gmdate("d.m.Y, H:i:s", $timerInfo);
+            $date = gmdate('d.m.Y, H:i:s', $timerInfo);
         }
-        $this->SetValue("NextSwitchOffTime", $date);
+        $this->SetValue('NextSwitchOffTime', $date);
     }
 
     /**
@@ -542,14 +539,14 @@ class HomeMaticIntervalTimer extends IPSModule
         if ($senderState == true) {
             $switchState = true;
         } else {
-            $devices = json_decode($this->ReadPropertyString("DeviceList"));
+            $devices = json_decode($this->ReadPropertyString('DeviceList'));
             if (!empty($devices)) {
                 foreach ($devices as $device) {
                     if ($device->UseDevice == true) {
                         $childrenIDs = IPS_GetChildrenIDs($device->DeviceID);
                         foreach ($childrenIDs as $childrenID) {
-                            $objectIdent = IPS_GetObject($childrenID)["ObjectIdent"];
-                            if ($objectIdent == "STATE") {
+                            $objectIdent = IPS_GetObject($childrenID)['ObjectIdent'];
+                            if ($objectIdent == 'STATE') {
                                 if (GetValue($childrenID) == true) {
                                     $switchState = true;
                                 }
@@ -559,7 +556,7 @@ class HomeMaticIntervalTimer extends IPSModule
                 }
             }
         }
-        SetValue($this->GetIDForIdent("Devices"), $switchState);
+        SetValue($this->GetIDForIdent('Devices'), $switchState);
     }
 
     /**
@@ -569,9 +566,8 @@ class HomeMaticIntervalTimer extends IPSModule
      */
     protected function WriteLogMessage(string $Text)
     {
-        IPS_LogMessage("UBHMIT", "ID: " . $this->InstanceID . ", " . $Text);
+        IPS_LogMessage('UBHMIT', 'ID: ' . $this->InstanceID . ', ' . $Text);
         $webFront = IPS_GetInstanceListByModuleID(WEBFRONT_GUID)[0];
-        WFC_SendNotification($webFront, $this->Translate("Error"), $Text, "Warning", 10);
+        WFC_SendNotification($webFront, $this->Translate('Error'), $Text, 'Warning', 10);
     }
-
 }
